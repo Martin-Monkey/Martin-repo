@@ -1,0 +1,5 @@
+Tohle je první øádek.
+Tohle je druhı øádek s více textem.
+Tento je tøetííííí.
+Tento øádek je nejdelší protoe obsahuje nejvíce znakù.
+Ètvrtı øádek.
