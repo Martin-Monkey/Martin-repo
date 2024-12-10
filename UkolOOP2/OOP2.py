@@ -138,3 +138,33 @@ def coffee_machine_menu(coffee_machine):
             print("Neplatná volba, zkuste to znovu.")
 
 
+def blender_menu(blender):
+    while True:
+        print("\n--- Menu Mixéru ---")
+        print("1. Zapnout Mixér")
+        print("2. Vypnout Mixér")
+        print("3. Mixovat")
+        print("4. Nastavit rychlost mixování")
+        print("5. Zpět")
+
+        choice = input("Vyberte číslo (1-5): ")
+
+        if choice == '1':
+            blender.turn_on()
+        elif choice == '2':
+            blender.turn_off()
+        elif choice == '3':
+            blender.blend()
+        elif choice == '4':
+            try:
+                speed = int(input("Zadejte rychlost mixování (1-5): "))
+                blender.set_speed(speed)
+            except ValueError:
+                print("Neplatná rychlost, musí to být číslo mezi 1 a 5.")
+        elif choice == '5':
+            break
+        else:
+            print("Neplatná volba, zkuste to znovu.")
+
+
+
