@@ -40,3 +40,25 @@ class CoffeeMachine(Device):
         print(f"Typ kávy nastaven na {self.coffee_type}.")
 
 
+# Použití mixéru
+class Blender(Device):
+    def __init__(self, name, is_on=False, speed=1):
+        super().__init__(name, is_on)
+        self.speed = speed  # Rychlost mixování (1-5)
+
+    def blend(self):
+
+        if self.is_on:
+            print(f"Mixuji na rychlosti {self.speed}.")
+        else:
+            print("Mixér není zapnutý. Nejprve ho zapněte.")
+
+    def set_speed(self, speed):
+        """Nastaví rychlost mixování (1-5)."""
+        if 1 <= speed <= 5:
+            self.speed = speed
+            print(f"Rychlost mixéru nastavena na {self.speed}.")
+        else:
+            print("Rychlost musí být mezi 1 a 5.")
+
+
