@@ -62,3 +62,25 @@ class Blender(Device):
             print("Rychlost musí být mezi 1 a 5.")
 
 
+# Použití mlýnku na maso
+class MeatGrinder(Device):
+    def __init__(self, name, is_on=False, grinding_speed=1):
+        super().__init__(name, is_on)
+        self.grinding_speed = grinding_speed  # Rychlost mletí (1-3)
+
+    def grind_meat(self):
+
+        if self.is_on:
+            print(f"Meleme maso na rychlosti {self.grinding_speed}.")
+        else:
+            print("Mlýnek na maso není zapnutý. Nejprve ho zapněte.")
+
+    def set_grinding_speed(self, grinding_speed):
+        """Nastaví rychlost mletí masa (1-3)."""
+        if 1 <= grinding_speed <= 3:
+            self.grinding_speed = grinding_speed
+            print(f"Rychlost mletí nastavena na {self.grinding_speed}.")
+        else:
+            print("Rychlost mletí musí být mezi 1 a 3.")
+
+
