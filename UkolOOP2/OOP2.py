@@ -83,4 +83,58 @@ class MeatGrinder(Device):
         else:
             print("Rychlost mletí musí být mezi 1 a 3.")
 
+# Funkce ovládání uživatelem
+def device_control():
+    # instance jednotlivých zařízení
+    coffee_machine = CoffeeMachine(name="Kávovar")
+    blender = Blender(name="Mixér")
+    meat_grinder = MeatGrinder(name="Mlýnek na maso")
+
+    while True:
+        print("\n--- Hlavní menu ---")
+        print("1. Ovládat Kávovar")
+        print("2. Ovládat Mixér")
+        print("3. Ovládat Mlýnek na maso")
+        print("4. Konec")
+
+        choice = input("Vyberte číslo (1-4): ")
+
+        if choice == '1':
+            coffee_machine_menu(coffee_machine)
+        elif choice == '2':
+            blender_menu(blender)
+        elif choice == '3':
+            meat_grinder_menu(meat_grinder)
+        elif choice == '4':
+            print("Ukončuji program.")
+            break
+        else:
+            print("Neplatná volba, zkuste to znovu.")
+
+
+def coffee_machine_menu(coffee_machine):
+    while True:
+        print("\n--- Menu Kávovaru ---")
+        print("1. Zapnout Kávovar")
+        print("2. Vypnout Kávovar")
+        print("3. Připravit kávu")
+        print("4. Nastavit typ kávy")
+        print("5. Zpět")
+
+        choice = input("Vyberte číslo (1-5): ")
+
+        if choice == '1':
+            coffee_machine.turn_on()
+        elif choice == '2':
+            coffee_machine.turn_off()
+        elif choice == '3':
+            coffee_machine.make_coffee()
+        elif choice == '4':
+            coffee_type = input("Zadejte nový typ kávy (např. Espresso, Latte): ")
+            coffee_machine.set_coffee_type(coffee_type)
+        elif choice == '5':
+            break
+        else:
+            print("Neplatná volba, zkuste to znovu.")
+
 
