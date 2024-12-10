@@ -167,4 +167,35 @@ def blender_menu(blender):
             print("Neplatná volba, zkuste to znovu.")
 
 
+def meat_grinder_menu(meat_grinder):
+    while True:
+        print("\n--- Menu Mlýnku na maso ---")
+        print("1. Zapnout Mlýnek na maso")
+        print("2. Vypnout Mlýnek na maso")
+        print("3. Mletí masa")
+        print("4. Nastavit rychlost mletí")
+        print("5. Zpět")
 
+        choice = input("Vyberte číslo (1-5): ")
+
+        if choice == '1':
+            meat_grinder.turn_on()
+        elif choice == '2':
+            meat_grinder.turn_off()
+        elif choice == '3':
+            meat_grinder.grind_meat()
+        elif choice == '4':
+            try:
+                speed = int(input("Zadejte rychlost mletí (1-3): "))
+                meat_grinder.set_grinding_speed(speed)
+            except ValueError:
+                print("Neplatná rychlost, musí to být číslo mezi 1 a 3.")
+        elif choice == '5':
+            break
+        else:
+            print("Neplatná volba, zkuste to znovu.")
+
+
+# Spuštění programu
+if __name__ == "__main__":
+    device_control()
