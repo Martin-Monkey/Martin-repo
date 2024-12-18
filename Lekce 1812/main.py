@@ -1,1 +1,0 @@
-# Task problem s velkým blokem if-else
