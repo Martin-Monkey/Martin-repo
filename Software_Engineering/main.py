@@ -30,7 +30,7 @@ obj.display()"""
 
 #Lepší verze
 
-class User:
+"""class User:
     def __init__(self, name, last_name, age):
         self.name = name
         self.last_name = last_name
@@ -64,4 +64,4 @@ Console.display(obj)
 
 # Získání údajů od uživatele a vytvoření nového objektu User
 obj = Console.input()
-Console.display(obj)
+Console.display(obj)"""
