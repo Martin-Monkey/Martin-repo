@@ -1,16 +1,67 @@
-# This is a sample Python script.
+"""class User:
+    def __init__(self, name, last_name, age):
+        self.name = name
+        self.last_name = last_name
+        self.age = age
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+    @property
+    def age(self):
+        return self._age
+
+    @age.setter
+    def age(self, age):
+        if age < 0 or age >= 130:
+            raise ValueError("Age must be between 0 and 130")
+        self._age = age
+
+    def display(self):
+        print(f"{self.name} {self.last_name} {self.age}")
+
+    def input_data(self):
+        self.name = input("Enter name: ")
+        self.last_name = input("Enter last name: ")
+        self.age = int(input("Enter age: "))
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+obj = User("Bill", "Windows", 34)
+obj.display()
+obj.input_data()
+obj.display()"""
 
+#Lepší verze
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+class User:
+    def __init__(self, name, last_name, age):
+        self.name = name
+        self.last_name = last_name
+        self.age = age
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    @property
+    def age(self):
+        return self._age
+
+    @age.setter
+    def age(self, age):
+        if age < 0 or age >= 130:
+            raise ValueError("Age must be between 0 and 130")
+        self._age = age
+
+class Console:
+    @staticmethod
+    def display(obj):
+        print(f"{obj.name} {obj.last_name} {obj.age}")
+
+    @staticmethod
+    def input():
+        name = input("Input name: ")
+        last_name = input("Input last name: ")
+        age = int(input("Input age: "))
+        return User(name, last_name, age)
+
+# Vytvoření objektu User a zobrazení jeho údajů
+obj = User("Bill", "Windows", 34)
+Console.display(obj)
+
+# Získání údajů od uživatele a vytvoření nového objektu User
+obj = Console.input()
+Console.display(obj)
