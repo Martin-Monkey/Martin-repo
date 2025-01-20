@@ -1,4 +1,3 @@
-# controller.py
 
 from model import Pizza, Topping, Order, Sales, CashPayment, CreditCardPayment, create_pizzas
 from view import UI

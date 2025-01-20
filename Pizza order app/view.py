@@ -1,4 +1,3 @@
-# view.py
 
 class UI:
     @staticmethod

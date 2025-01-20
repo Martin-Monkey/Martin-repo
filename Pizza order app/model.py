@@ -1,4 +1,3 @@
-# model.py
 
 class Pizza:
     def __init__(self, name, size, price, toppings=None):
