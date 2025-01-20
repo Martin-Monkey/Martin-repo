@@ -20,3 +20,15 @@ class Topping:
     def __str__(self):
         return self.name
 
+class Order:
+    def __init__(self):
+        self.pizzas = []
+        self.total = 0
+
+    def add_pizza(self, pizza):
+        self.pizzas.append(pizza)
+        self.total += pizza.price
+
+    def __str__(self):
+        return "\n".join(map(str, self.pizzas)) + f"\nTotal: ${self.total:.2f}"
+
