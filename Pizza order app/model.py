@@ -32,3 +32,21 @@ class Order:
     def __str__(self):
         return "\n".join(map(str, self.pizzas)) + f"\nTotal: ${self.total:.2f}"
 
+class Sales:
+    _instance = None
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+            cls._instance.orders = 0
+            cls._instance.total_sales = 0
+        return cls._instance
+
+    def record_sale(self, amount):
+        self.orders += 1
+        self.total_sales += amount
+
+    def show_sales(self):
+        return f"Total Orders: {self.orders}, Total Sales: ${self.total_sales:.2f}"
+
+
