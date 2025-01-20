@@ -1,4 +1,4 @@
-# main.py
+# test_cislo.py
 
 import unittest
 from cislo import Number  # Import the Number class
