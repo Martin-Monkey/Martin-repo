@@ -11,20 +11,20 @@ class MainController:
     def create_order(self):
         self.order = Order()
         UI.show_pizzas(self.pizzas)
-        choice = int(input("Select pizza (1-5): ")) - 1
+        choice = int(input("Zvolte pizzu (1-5): ")) - 1
         pizza = self.pizzas[choice]
         self.order.add_pizza(pizza)
         UI.show_order_summary(self.order)
 
     def process_payment(self):
         UI.show_payment_method()
-        method_choice = int(input("Choose payment method: "))
+        method_choice = int(input("Zvolte platební metodu: "))
         if method_choice == 1:
             payment_method = CreditCardPayment()
         elif method_choice == 2:
             payment_method = CashPayment()
         else:
-            print("Invalid option.")
+            print("Zlá volba.")
             return
         print(payment_method.pay(self.order.total))
         self.sales.record_sale(self.order.total)

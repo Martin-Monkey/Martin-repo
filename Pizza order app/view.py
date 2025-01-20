@@ -2,25 +2,25 @@
 class UI:
     @staticmethod
     def show_main_menu():
-        print("1. Create Order")
-        print("2. Pay")
-        print("3. Show Sales")
-        print("4. Show Pizzas")
-        print("5. Exit")
+        print("1. Vytvořit objednávku")
+        print("2. Platit")
+        print("3. Zobrazit hotové objednávky")
+        print("4. Zobrazit nabídku pizze")
+        print("5. Konec")
 
     @staticmethod
     def show_pizzas(pizzas):
-        print("\nAvailable Pizzas:")
+        print("\nNabídka pizze:")
         for i, pizza in enumerate(pizzas, 1):
             print(f"{i}. {pizza}")
 
     @staticmethod
     def show_order_summary(order):
-        print("\nYour Order:")
+        print("\nVaše objednávka:")
         print(order)
 
     @staticmethod
     def show_payment_method():
-        print("\nSelect payment method:")
-        print("1. Credit Card")
-        print("2. Cash")
+        print("\nZvolte platební metodu:")
+        print("1. Creditní karta")
+        print("2. Hotovost")

@@ -1,4 +1,3 @@
-# main.py
 
 from controller import MainController
 from view import UI
@@ -14,16 +13,17 @@ def run():
             controller.create_order()
         elif choice == '2':
             if controller.order:
-                controller.process_payment()
+                controller.process_payment()  # Platba
+                Parser.save_order(controller.order, 'order.json')
+                print("Order saved to file.")
             else:
                 print("No order created.")
         elif choice == '3':
             controller.show_sales()
         elif choice == '4':
-            Parser.save_order(controller.order, 'order.json')
-            print("Order saved to file.")
+            UI.show_pizzas(controller.pizzas)
         elif choice == '5':
-            print("Goodbye!")
+            print("Děkujeme, přiďte zas!")
             break
 
 if __name__ == "__main__":
