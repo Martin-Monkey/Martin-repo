@@ -70,7 +70,7 @@ class CashPayment(PaymentStrategy):
         return f"Paid ${amount} in Cash."
 
 
-# 5 types of pizzas
+
 def create_pizzas():
     pizzas = [
         Pizza("Margherita", "Small", 5.00, [Topping("Tomato", 0.5), Topping("Cheese", 1)]),
