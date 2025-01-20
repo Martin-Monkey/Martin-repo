@@ -50,3 +50,15 @@ class Sales:
         return f"Total Orders: {self.orders}, Total Sales: ${self.total_sales:.2f}"
 
 
+class PaymentStrategy:
+    def pay(self, amount):
+        pass
+
+class CreditCardPayment(PaymentStrategy):
+    def pay(self, amount):
+        return f"Paid ${amount} using Credit Card."
+
+class CashPayment(PaymentStrategy):
+    def pay(self, amount):
+        return f"Paid ${amount} in Cash."
+
