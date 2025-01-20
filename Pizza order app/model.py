@@ -1,0 +1,22 @@
+class Pizza:
+    def __init__(self, name, size, price):
+        self.name = name
+        self.size = size
+        self.price = price
+        self.toppings = []
+
+    def add_topping(self, topping):
+        self.toppings.append(topping)
+        self.price += topping.price
+
+    def __str__(self):
+        return f"{self.size} {self.name} with {', '.join(map(str, self.toppings))} - ${self.price:.2f}"
+
+class Topping:
+    def __init__(self, name, price):
+        self.name = name
+        self.price = price
+
+    def __str__(self):
+        return self.name
+
