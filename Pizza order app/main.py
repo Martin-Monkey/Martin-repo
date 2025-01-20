@@ -1,6 +1,8 @@
+# main.py
+
 from controller import MainController
 from view import UI
-
+from file_manager import Parser
 
 def run():
     controller = MainController()
@@ -18,9 +20,11 @@ def run():
         elif choice == '3':
             controller.show_sales()
         elif choice == '4':
+            Parser.save_order(controller.order, 'order.json')
+            print("Order saved to file.")
+        elif choice == '5':
             print("Goodbye!")
             break
-
 
 if __name__ == "__main__":
     run()
