@@ -8,7 +8,6 @@ class Request:
         self.time = time.time()  # Čas odeslání požadavku
 
     def __lt__(self, other):
-        # Tato metoda zajišťuje správné řazení požadavků ve frontě podle priority.
         return self.priority < other.priority  # Nižší číslo = vyšší priorita
 
     def __str__(self):
@@ -20,5 +19,4 @@ class Client:
         self.name = name
 
     def create_request(self, priority):
-        # Vytvoření požadavku s určitou prioritou
         return Request(self.name, priority)
