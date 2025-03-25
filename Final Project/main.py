@@ -25,3 +25,20 @@ def load_contacts_pickle():
 def save_contacts_pickle(contacts):
     with open(CONTACTS_PICKLE, "wb") as file:
         pickle.dump(contacts, file)
+
+def add_contact(name, phone):
+    contacts = load_contacts_json()
+    contacts[name] = phone
+    save_contacts_json(contacts)
+    save_contacts_pickle(contacts)
+    print(f"Kontakt {name} byl přidán.")
+
+def delete_contact(name):
+    contacts = load_contacts_json()
+    if name in contacts:
+        del contacts[name]
+        save_contacts_json(contacts)
+        save_contacts_pickle(contacts)
+        print(f"Kontakt {name} byl smazán.")
+    else:
+        print("Kontakt nenalezen.")
