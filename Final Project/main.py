@@ -1,16 +1,27 @@
-# This is a sample Python script.
+import json
+import pickle
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+CONTACTS_JSON = "contacts.json"
+CONTACTS_PICKLE = "contacts.pkl"
 
+def load_contacts_json():
+    try:
+        with open(CONTACTS_JSON, "r") as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def save_contacts_json(contacts):
+    with open(CONTACTS_JSON, "w") as file:
+        json.dump(contacts, file, indent=4)
 
+def load_contacts_pickle():
+    try:
+        with open(CONTACTS_PICKLE, "rb") as file:
+            return pickle.load(file)
+    except (FileNotFoundError, EOFError):
+        return {}
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+def save_contacts_pickle(contacts):
+    with open(CONTACTS_PICKLE, "wb") as file:
+        pickle.dump(contacts, file)
