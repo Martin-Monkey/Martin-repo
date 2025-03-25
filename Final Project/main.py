@@ -42,3 +42,18 @@ def delete_contact(name):
         print(f"Kontakt {name} byl smazán.")
     else:
         print("Kontakt nenalezen.")
+
+def update_contact(name, new_phone):
+    contacts = load_contacts_json()
+    if name in contacts:
+        contacts[name] = new_phone
+        save_contacts_json(contacts)
+        save_contacts_pickle(contacts)
+        print(f"Kontakt {name} byl aktualizován.")
+    else:
+        print("Kontakt nenalezen.")
+
+def search_contact(name):
+    contacts = load_contacts_json()
+    return contacts.get(name, "Kontakt nenalezen.")
+
