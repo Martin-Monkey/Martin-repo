@@ -4,6 +4,7 @@ import pickle
 CONTACTS_JSON = "contacts.json"
 CONTACTS_PICKLE = "contacts.pkl"
 
+
 def load_contacts_json():
     try:
         with open(CONTACTS_JSON, "r") as file:
@@ -11,9 +12,11 @@ def load_contacts_json():
     except (FileNotFoundError, json.JSONDecodeError):
         return {}
 
+
 def save_contacts_json(contacts):
     with open(CONTACTS_JSON, "w") as file:
         json.dump(contacts, file, indent=4)
+
 
 def load_contacts_pickle():
     try:
@@ -22,40 +25,52 @@ def load_contacts_pickle():
     except (FileNotFoundError, EOFError):
         return {}
 
+
 def save_contacts_pickle(contacts):
     with open(CONTACTS_PICKLE, "wb") as file:
         pickle.dump(contacts, file)
 
-def add_contact(name, phone):
+
+def add_contact(first_name, last_name, phone, address=None, birth_date=None, passport_number=None, nationality=None):
     contacts = load_contacts_json()
-    contacts[name] = phone
+    full_name = f"{first_name} {last_name}"
+    contacts[full_name] = {
+        "Telefon": phone,
+        "Adresa": address if address else "N/A",
+        "Datum narození": birth_date if birth_date else "N/A",
+        "Číslo pasu": passport_number if passport_number else "N/A",
+        "Národnost": nationality if nationality else "N/A"
+    }
     save_contacts_json(contacts)
     save_contacts_pickle(contacts)
-    print(f"Kontakt {name} byl přidán.")
+    print(f"Kontakt {full_name} byl přidán.")
 
-def delete_contact(name):
+
+def delete_contact(full_name):
     contacts = load_contacts_json()
-    if name in contacts:
-        del contacts[name]
+    if full_name in contacts:
+        del contacts[full_name]
         save_contacts_json(contacts)
         save_contacts_pickle(contacts)
-        print(f"Kontakt {name} byl smazán.")
+        print(f"Kontakt {full_name} byl smazán.")
     else:
         print("Kontakt nenalezen.")
 
-def update_contact(name, new_phone):
+
+def update_contact(full_name, new_phone):
     contacts = load_contacts_json()
-    if name in contacts:
-        contacts[name] = new_phone
+    if full_name in contacts:
+        contacts[full_name]["Telefon"] = new_phone
         save_contacts_json(contacts)
         save_contacts_pickle(contacts)
-        print(f"Kontakt {name} byl aktualizován.")
+        print(f"Kontakt {full_name} byl aktualizován.")
     else:
         print("Kontakt nenalezen.")
 
-def search_contact(name):
+
+def search_contact(full_name):
     contacts = load_contacts_json()
-    return contacts.get(name, "Kontakt nenalezen.")
+    return contacts.get(full_name, "Kontakt nenalezen.")
 
 
 def main():
@@ -70,19 +85,24 @@ def main():
         choice = input("Vyber možnost: ")
 
         if choice == "1":
-            name = input("Zadej jméno: ")
+            first_name = input("Zadej jméno: ")
+            last_name = input("Zadej příjmení: ")
             phone = input("Zadej telefonní číslo: ")
-            add_contact(name, phone)
+            address = input("Zadej adresu (nepovinné, Enter pro přeskočení): ") or None
+            birth_date = input("Zadej datum narození (nepovinné, Enter pro přeskočení): ") or None
+            passport_number = input("Zadej číslo cestovního dokladu (nepovinné, Enter pro přeskočení): ") or None
+            nationality = input("Zadej národnost (nepovinné, Enter pro přeskočení): ") or None
+            add_contact(first_name, last_name, phone, address, birth_date, passport_number, nationality)
         elif choice == "2":
-            name = input("Zadej jméno pro smazání: ")
-            delete_contact(name)
+            full_name = input("Zadej celé jméno pro smazání: ")
+            delete_contact(full_name)
         elif choice == "3":
-            name = input("Zadej jméno pro vyhledání: ")
-            print(search_contact(name))
+            full_name = input("Zadej celé jméno pro vyhledání: ")
+            print(search_contact(full_name))
         elif choice == "4":
-            name = input("Zadej jméno kontaktu k úpravě: ")
+            full_name = input("Zadej celé jméno kontaktu k úpravě: ")
             new_phone = input("Zadej nové telefonní číslo: ")
-            update_contact(name, new_phone)
+            update_contact(full_name, new_phone)
         elif choice == "5":
             print("Ukončuji program.")
             break
@@ -92,4 +112,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
