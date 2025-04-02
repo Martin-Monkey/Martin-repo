@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Events</title>
+    <style>
+        body {
+            position: relative;
+            height: 2000px;
+        }
+        div {
+            background: navy;
+            height: 50px;
+            width: 100px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="stranger"></div>
+    <script>
+        let stranger = document.getElementById('stranger');
+
+        document.body.addEventListener('click', function(e) {
+            stranger.style.left = e.pageX + 'px';
+            console.log(e.pageX);
+
+stranger.style.top
+ = e.pageY + 'px';
+            console.log(e.pageY);
+        });
+    </script>
+</body>
+</html>

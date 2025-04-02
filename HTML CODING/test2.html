@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Events</title>
+        <style>
+            div {
+                background: navy;
+                height: 50px;
+                width: 150px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="myDiv"></div>
+        <script>
+            const myDiv = document.getElementById("myDiv");
+
+            myDiv.addEventListener("mouseover", function() {
+                myDiv.style.backgroundColor = 'red';
+                //alert('Prejel si mysi');
+            });
+
+            myDiv.addEventListener("mouseout", function() {
+                myDiv.style.backgroundColor = 'blue';
+                //alert('Prejel si mysi');
+            });
+
+
+
+            myDiv.addEventListener("click", function() {
+                alert('DIV byl kliknut');
+            });
+        </script>
+    </body>
+</html>
