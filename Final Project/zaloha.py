@@ -1,3 +1,5 @@
+"""
+
 import json
 import pickle
 
@@ -100,9 +102,9 @@ def display_all_contacts():
     contacts = load_contacts_json()
     print("\nSeznam všech kontaktů:")
     for full_name, info in contacts.items():
-        print(f"{full_name}: ", end="")  # Zobrazíme celé jméno
+        print(f"{full_name}: ", end="")
         for key, value in info.items():
-            print(f"{key}: {value}, ", end="")  # Zobrazíme všechny údaje
+            print(f"{key}: {value}, ", end="")
         print()
 
 
@@ -127,33 +129,8 @@ def main():
             nationality = input("Zadej národnost (nepovinné, Enter pro přeskočení): ") or None
             add_contact(first_name, last_name, phone, address, birth_date, passport_number, nationality)
         elif choice == "2":
-            print("\nVyhledávání kontaktu pro smazání:")
-            search_term = input("Zadej údaj pro vyhledání: ")
-            results = search_contact(search_term)
-
-            if results:
-                print("\nNalezené kontakty:")
-                for i, (full_name, info) in enumerate(results, start=1):
-                    print(f"{i}. {full_name}: {info}")
-
-                contact_choice = int(input(f"Vyber číslo kontaktu k smazání (1-{len(results)}): ")) - 1
-                if 0 <= contact_choice < len(results):
-                    full_name, info = results[contact_choice]
-                    print(f"\nVybraný kontakt: {full_name}")
-                    print("Možné údaje kontaktu k smazání:")
-                    for key, value in info.items():
-                        print(f"{key}: {value}")
-                    confirmation = input("Pro smazání napiš ANO, nebo pro zrušení NE: ").strip().upper()
-                    if confirmation == "ANO":
-                        delete_contact(full_name)
-                    elif confirmation == "NE":
-                        print("Smazání zrušeno.")
-                    else:
-                        print("Zadali jste neplatný příkaz! Smazání zrušeno.")
-                else:
-                    print("Neplatný výběr.")
-            else:
-                print("Kontakt nenalezen.")
+            full_name = input("Zadej celé jméno pro smazání: ")
+            delete_contact(full_name)
         elif choice == "3":
             print("\n1. Zadej údaj z kontaktu")
             print("2. Zobraz všechny kontakty")
@@ -205,3 +182,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""
