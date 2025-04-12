@@ -85,24 +85,52 @@ def main():
         choice = input("Vyber možnost: ")
 
         if choice == "1":
+            print("Zadej Z pro návrat do hlavního menu kdykoli.")
             first_name = input("Zadej jméno: ")
+            if first_name.upper() == "Z":
+                continue
             last_name = input("Zadej příjmení: ")
+            if last_name.upper() == "Z":
+                continue
             phone = input("Zadej telefonní číslo: ")
-            address = input("Zadej adresu (nepovinné, Enter pro přeskočení): ") or None
-            birth_date = input("Zadej datum narození (nepovinné, Enter pro přeskočení): ") or None
-            passport_number = input("Zadej číslo cestovního dokladu (nepovinné, Enter pro přeskočení): ") or None
-            nationality = input("Zadej národnost (nepovinné, Enter pro přeskočení): ") or None
-            add_contact(first_name, last_name, phone, address, birth_date, passport_number, nationality)
+            if phone.upper() == "Z":
+                continue
+            address = input("Zadej adresu (Enter pro přeskočení): ")
+            if address.upper() == "Z":
+                continue
+            birth_date = input("Zadej datum narození (Enter pro přeskočení): ")
+            if birth_date.upper() == "Z":
+                continue
+            passport_number = input("Zadej číslo cestovního dokladu (Enter pro přeskočení): ")
+            if passport_number.upper() == "Z":
+                continue
+            nationality = input("Zadej národnost (Enter pro přeskočení): ")
+            if nationality.upper() == "Z":
+                continue
+            add_contact(first_name, last_name, phone, address or None, birth_date or None, passport_number or None,
+                        nationality or None)
+
         elif choice == "2":
-            full_name = input("Zadej celé jméno pro smazání: ")
+            full_name = input("Zadej celé jméno pro smazání (nebo Z pro návrat): ")
+            if full_name.upper() == "Z":
+                continue
             delete_contact(full_name)
+
         elif choice == "3":
-            full_name = input("Zadej celé jméno pro vyhledání: ")
+            full_name = input("Zadej celé jméno pro vyhledání (nebo Z pro návrat): ")
+            if full_name.upper() == "Z":
+                continue
             print(search_contact(full_name))
+
         elif choice == "4":
-            full_name = input("Zadej celé jméno kontaktu k úpravě: ")
-            new_phone = input("Zadej nové telefonní číslo: ")
+            full_name = input("Zadej celé jméno kontaktu k úpravě (nebo Z pro návrat): ")
+            if full_name.upper() == "Z":
+                continue
+            new_phone = input("Zadej nové telefonní číslo (nebo Z pro návrat): ")
+            if new_phone.upper() == "Z":
+                continue
             update_contact(full_name, new_phone)
+
         elif choice == "5":
             print("Ukončuji program.")
             break
