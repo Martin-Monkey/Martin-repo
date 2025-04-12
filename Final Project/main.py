@@ -42,7 +42,7 @@ def add_contact(first_name, last_name, phone, address=None, birth_date=None, pas
         "Národnost": nationality if nationality else "N/A"
     }
     save_contacts_json(contacts)
-    save_contacts_pickle(contacts)  # Ukládání do Pickle
+    save_contacts_pickle(contacts)
     print(f"Kontakt {full_name} byl přidán.")
 
 
@@ -51,57 +51,59 @@ def delete_contact(full_name):
     if full_name in contacts:
         del contacts[full_name]
         save_contacts_json(contacts)
-        save_contacts_pickle(contacts)  # Ukládání do Pickle
+        save_contacts_pickle(contacts)
         print(f"Kontakt {full_name} byl smazán.")
     else:
         print("Kontakt nenalezen.")
 
 
-def update_contact(full_name, new_phone):
+def update_contact(full_name, field, new_value):
     contacts = load_contacts_json()
     if full_name in contacts:
-        contacts[full_name]["Telefon"] = new_phone
+        # Upravíme pole na správný formát pomocí capitalize()
+        field = field.strip().capitalize()
+
+        # Pokud uživatel chce změnit celé jméno (first_name a last_name)
+        if field == "Jméno":
+            first_name, last_name = new_value.split()
+            new_full_name = f"{first_name} {last_name}"
+            if new_full_name != full_name:
+                contacts[new_full_name] = contacts.pop(full_name)  # Změna full_name
+                full_name = new_full_name
+                print(f"Jméno kontaktu bylo změněno na {new_full_name}.")
+
+        # Kontrola, zda zadané pole existuje v kontaktu
+        elif field in contacts[full_name]:
+            contacts[full_name][field] = new_value
+            print(f"Pole {field} bylo aktualizováno na {new_value}.")
+        else:
+            print(f"Požadované pole {field} nenalezeno.")
+
         save_contacts_json(contacts)
-        save_contacts_pickle(contacts)  # Ukládání do Pickle
+        save_contacts_pickle(contacts)
         print(f"Kontakt {full_name} byl aktualizován.")
     else:
         print("Kontakt nenalezen.")
 
 
-def search_contact(full_name):
-    contacts = load_contacts_json()
-    return contacts.get(full_name, "Kontakt nenalezen.")
-
-
-def search_by_any_field(query):
+def search_contact(search_term):
     contacts = load_contacts_json()
     results = []
-    for name, info in contacts.items():
-        if query.lower() in name.lower() or any(query.lower() in str(value).lower() for value in info.values()):
-            result = {"Jméno": name}
-            result.update(info)
-            results.append(result)
+    for full_name, info in contacts.items():
+        if any(search_term.lower() in str(value).lower() for value in
+               info.values()) or search_term.lower() in full_name.lower():
+            results.append((full_name, info))
     return results
 
 
 def display_all_contacts():
     contacts = load_contacts_json()
-    if not contacts:
-        print("Žádné kontakty nejsou uloženy.")
-        return
     print("\nSeznam všech kontaktů:")
-    for name, info in contacts.items():
-        print(f"\nJméno: {name} | ", end="")
-        if isinstance(info, dict):
-            # Vytvoříme řetězec s údaji kontaktu oddělenými " | "
-            contact_info = " | ".join([f"{key}: {value}" for key, value in info.items()])
-            print(contact_info)
-        else:
-            print(f"Hodnota: {info}")
-
-
-def go_back():
-    input("\nStiskněte Enter pro návrat do hlavního menu...")
+    for full_name, info in contacts.items():
+        print(f"{full_name}: ", end="")
+        for key, value in info.items():
+            print(f"{key}: {value}, ", end="")
+        print()
 
 
 def main():
@@ -111,8 +113,7 @@ def main():
         print("2. Smazat kontakt")
         print("3. Vyhledat kontakt")
         print("4. Upravit kontakt")
-        print("5. Zobrazit všechny kontakty")
-        print("6. Ukončit")
+        print("5. Ukončit")
 
         choice = input("Vyber možnost: ")
 
@@ -125,40 +126,52 @@ def main():
             passport_number = input("Zadej číslo cestovního dokladu (nepovinné, Enter pro přeskočení): ") or None
             nationality = input("Zadej národnost (nepovinné, Enter pro přeskočení): ") or None
             add_contact(first_name, last_name, phone, address, birth_date, passport_number, nationality)
-            go_back()
         elif choice == "2":
             full_name = input("Zadej celé jméno pro smazání: ")
             delete_contact(full_name)
-            go_back()
         elif choice == "3":
-            print("\nVyhledávání:")
-            print("1. Zadej údaj z kontaktu")
+            print("\n1. Zadej údaj z kontaktu")
             print("2. Zobraz všechny kontakty")
-            search_choice = input("Vyber možnost: ")
+            search_choice = input("Vyber možnost pro vyhledání: ")
+
             if search_choice == "1":
-                query = input("Zadej hledaný údaj: ")
-                results = search_by_any_field(query)
+                search_term = input("Zadej údaj pro vyhledání: ")
+                results = search_contact(search_term)
                 if results:
-                    print("\nVýsledky hledání:")
-                    for result in results:
-                        print(" | ".join([f"{key}: {value}" for key, value in result.items()]))
+                    for full_name, info in results:
+                        print(f"Kontakt nalezen: {full_name}, {info}")
                 else:
-                    print("Žádný kontakt neodpovídá zadaným údajům.")
-                go_back()
+                    print("Kontakt nenalezen.")
             elif search_choice == "2":
                 display_all_contacts()
-                go_back()
             else:
-                print("Neplatná volba!")
+                print("Neplatná volba.")
         elif choice == "4":
-            full_name = input("Zadej celé jméno kontaktu k úpravě: ")
-            new_phone = input("Zadej nové telefonní číslo: ")
-            update_contact(full_name, new_phone)
-            go_back()
+            search_term = input("Zadej údaj pro vyhledání kontaktu: ")
+            results = search_contact(search_term)
+
+            if results:
+                print("\nNalezené kontakty:")
+                for i, (full_name, info) in enumerate(results, start=1):
+                    print(f"{i}. {full_name}: {info}")
+
+                contact_choice = int(input(f"Vyber číslo kontaktu k úpravě (1-{len(results)}): ")) - 1
+                if 0 <= contact_choice < len(results):
+                    full_name, info = results[contact_choice]
+                    print(f"\nVybraný kontakt: {full_name}")
+                    print("Možná pole k úpravy: Telefon, Adresa, Datum narození, Číslo pasu, Národnost, Jméno")
+                    field = input("Zadej pole, které chceš upravit: ")
+                    field = field.strip().capitalize()  # Použití capitalize() pro správný formát
+                    if field.lower() in ['telefon', 'adresa', 'datum narození', 'číslo pasu', 'národnost', 'jméno']:
+                        new_value = input(f"Zadej novou hodnotu pro {field}: ")
+                        update_contact(full_name, field, new_value)
+                    else:
+                        print("Neplatné pole.")
+                else:
+                    print("Neplatný výběr.")
+            else:
+                print("Kontakt nenalezen.")
         elif choice == "5":
-            display_all_contacts()
-            go_back()
-        elif choice == "6":
             print("Ukončuji program.")
             break
         else:
