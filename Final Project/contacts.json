@@ -1,10 +1,9 @@
 {
-    "Darth Vader": "606 666 666",
-    "David Hasselhoff": {
+    "Jan Novv\u00e1k": {
         "Telefon": "",
-        "Adresa": "Miami Avenue 33, 44569 Florida ",
-        "Datum narozen\u00ed": "17.07.1952",
-        "\u010c\u00edslo pasu": "999999999BB",
-        "N\u00e1rodnost": "N/A"
+        "Adresa": "Testovac\u00ed 123, 01000 Praha",
+        "Datum narozen\u00ed": "01.01.1992",
+        "\u010c\u00edslo pasu": "BB00001231",
+        "N\u00e1rodnost": "\u010cesk\u00e1"
     }
 }
